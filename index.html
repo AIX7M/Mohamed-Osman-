@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input[type="text"] {
+            margin-bottom: 10px;
+        }
+
+        form button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="download-form">
+        <input type="text" id="url" placeholder="Enter YouTube video URL" required>
+        <button type="submit">Download</button>
+    </form>
+    <script>
+        const downloadForm = document.getElementById('download-form');
+
+        downloadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const url = document.getElementById('url').value;
+            const videoId = url.split('watch?v=')[1];
+            const audioUrl = `https://www.youtube.com/watch?v=${videoId}&bpctr=9999999999&t=0h0m0s`;
+            const videoUrl = `https://www.youtube.com/watch?v=${videoId}&bpctr=9999999999&t=0h0m0s`;
+
+            // Create audio link
+            const audioLink = document.createElement('a');
+            audioLink.href = audioUrl;
+            audioLink.download = `${videoId}.mp3`;
+            audioLink.textContent = 'Download Audio';
+            document.body.appendChild(audioLink);
+
+            // Create video link
+            const videoLink = document.createElement('a');
+            videoLink.href = videoUrl;
+            videoLink.download = `${videoId}.mp4`;
+            videoLink.textContent = 'Download Video';
+            document.body.appendChild(videoLink);
+        });
+    </script>
+</body>
+</html>
